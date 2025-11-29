@@ -6,21 +6,10 @@ import {
   ScrollView,
   Modal,
   TextInput,
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
-// Tipo para Ordem de Serviço
-interface OrdemServico {
-  id: number;
-  titulo: string;
-  descricao: string;
-  local: string;
-  solicitante: string;
-  data: string;
-  prioridade: "Alta" | "Média" | "Baixa";
-  status: "Pendente" | "Aceita" | "Recusada" | "Finalizada";
-  comentarioResolucao?: string;
-}
+import { OrdemServico } from "../types/ordemServico";
 
 // Dados simulados para demonstração
 const ordemExemplo: OrdemServico = {
@@ -54,7 +43,10 @@ export default function DetalhesOS() {
   // Função para finalizar a OS
   const finalizarOS = () => {
     if (!comentarioFinalizacao.trim()) {
-      alert("Por favor, adicione um comentário sobre como a OS foi resolvida.");
+      Alert.alert(
+        "Campo obrigatório",
+        "Por favor, adicione um comentário sobre como a OS foi resolvida."
+      );
       return;
     }
     setOrdem((prev) => ({
